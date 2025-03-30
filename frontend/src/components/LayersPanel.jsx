@@ -66,7 +66,7 @@ const LayersPanel = () => {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  dispatch(deleteLayer(layer.id));
+                  !layer.locked ? dispatch(deleteLayer(layer.id)) : null;
                 }}
               >
                 <FaTrash className="text-red-500" />
