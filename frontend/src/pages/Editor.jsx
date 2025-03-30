@@ -1,5 +1,6 @@
 import MenuBar from '../components/MenuBar';
 import Toolbar from '../components/Toolbar';
+import LayersPanel from '../components/LayersPanel';
 
 const Editor = () => {
   return (
@@ -12,12 +13,15 @@ const Editor = () => {
         </div>
 
         {/* Main Artboard Area */}
-        <div className="flex-1 flex justify-center items-center bg-white">
+        <div className="flex-1 flex justify-center items-center bg-white relative">
           <div className="w-3/4 h-3/4 border-2 border-gray-300">
             {/* Artboard Placeholder */}
             <h2 className="text-gray-500 text-center mt-4">Artboard Area</h2>
           </div>
         </div>
+
+        {/* Layers Panel on the Right */}
+        <LayersPanel />
       </div>
     </div>
   );
