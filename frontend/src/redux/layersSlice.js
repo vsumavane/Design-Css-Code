@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   layers: [], // Array of all layers
@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const layersSlice = createSlice({
-  name: "layers",
+  name: 'layers',
   initialState,
   reducers: {
     // Add new layer
@@ -54,12 +54,6 @@ const layersSlice = createSlice({
   },
 });
 
-export const {
-  addLayer,
-  updateLayer,
-  deleteLayer,
-  selectLayer,
-  toggleVisibility,
-  toggleLock,
-} = layersSlice.actions;
+export const { addLayer, updateLayer, deleteLayer, selectLayer, toggleVisibility, toggleLock } =
+  layersSlice.actions;
 export default layersSlice.reducer;

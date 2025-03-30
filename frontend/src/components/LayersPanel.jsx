@@ -1,12 +1,7 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  deleteLayer,
-  selectLayer,
-  toggleVisibility,
-  toggleLock,
-} from "../redux/layersSlice";
-import { FaEye, FaEyeSlash, FaLock, FaUnlock, FaTrash } from "react-icons/fa";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteLayer, selectLayer, toggleVisibility, toggleLock } from '../redux/layersSlice';
+import { FaEye, FaEyeSlash, FaLock, FaUnlock, FaTrash } from 'react-icons/fa';
 
 const LayersPanel = () => {
   const dispatch = useDispatch();
@@ -21,16 +16,14 @@ const LayersPanel = () => {
     <div className="w-60 bg-gray-100 h-full p-4 border-r overflow-auto">
       <h2 className="text-lg font-bold mb-4">Layers</h2>
       <div className="space-y-2">
-        {layers.length === 0 && (
-          <p className="text-gray-500">No layers added yet.</p>
-        )}
+        {layers.length === 0 && <p className="text-gray-500">No layers added yet.</p>}
         {layers.map((layer) => (
           <div
             key={layer.id}
             className={`flex items-center justify-between p-2 rounded cursor-pointer ${
               selectedLayer === layer.id
-                ? "bg-blue-200 border border-blue-500"
-                : "bg-white hover:bg-gray-200"
+                ? 'bg-blue-200 border border-blue-500'
+                : 'bg-white hover:bg-gray-200'
             }`}
             onClick={() => handleSelectLayer(layer.id)}
           >
