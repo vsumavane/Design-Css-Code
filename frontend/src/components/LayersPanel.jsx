@@ -1,70 +1,84 @@
-import React, { useState } from "react";
-import { FaEye, FaEyeSlash, FaTrash, FaPlus } from "react-icons/fa";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  deleteLayer,
+  selectLayer,
+  toggleVisibility,
+  toggleLock,
+} from "../redux/layersSlice";
+import { FaEye, FaEyeSlash, FaLock, FaUnlock, FaTrash } from "react-icons/fa";
 
 const LayersPanel = () => {
-  const [layers, setLayers] = useState([
-    { id: 1, name: "Layer 1", visible: true },
-    { id: 2, name: "Layer 2", visible: true },
-  ]);
+  const dispatch = useDispatch();
+  const { layers, selectedLayer } = useSelector((state) => state.layers);
 
-  // Add New Layer
-  const addLayer = () => {
-    const newLayer = {
-      id: layers.length + 1,
-      name: `Layer ${layers.length + 1}`,
-      visible: true,
-    };
-    setLayers([...layers, newLayer]);
-  };
-
-  // Delete Layer
-  const deleteLayer = (id) => {
-    setLayers(layers.filter((layer) => layer.id !== id));
-  };
-
-  // Toggle Layer Visibility
-  const toggleVisibility = (id) => {
-    setLayers(
-      layers.map((layer) =>
-        layer.id === id ? { ...layer, visible: !layer.visible } : layer
-      )
-    );
+  // Handle layer selection
+  const handleSelectLayer = (layerId) => {
+    dispatch(selectLayer(layerId));
   };
 
   return (
-    <div className="w-60 bg-gray-100 border-l border-gray-300 p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">Layers</h2>
-        <button
-          onClick={addLayer}
-          className="text-green-600 hover:text-green-800"
-        >
-          <FaPlus />
-        </button>
-      </div>
-
+    <div className="w-60 bg-gray-100 h-full p-4 border-r overflow-auto">
+      <h2 className="text-lg font-bold mb-4">Layers</h2>
       <div className="space-y-2">
+        {layers.length === 0 && (
+          <p className="text-gray-500">No layers added yet.</p>
+        )}
         {layers.map((layer) => (
           <div
             key={layer.id}
-            className="flex items-center justify-between bg-white p-2 rounded shadow"
+            className={`flex items-center justify-between p-2 rounded cursor-pointer ${
+              selectedLayer === layer.id
+                ? "bg-blue-200 border border-blue-500"
+                : "bg-white hover:bg-gray-200"
+            }`}
+            onClick={() => handleSelectLayer(layer.id)}
           >
+            {/* Layer Name */}
             <div className="flex items-center space-x-2">
-              <button
-                onClick={() => toggleVisibility(layer.id)}
-                className="text-gray-600 hover:text-gray-800"
-              >
-                {layer.visible ? <FaEye /> : <FaEyeSlash />}
-              </button>
-              <span className="text-sm">{layer.name}</span>
+              <span className="font-medium">{layer.type}</span>
             </div>
 
-            <button
-              onClick={() => deleteLayer(layer.id)}
-              className="text-red-600 hover:text-red-800"
-            >
-              <FaTrash />
-            </button>
+            {/* Actions: Visibility, Lock, Delete */}
+            <div className="flex items-center space-x-2">
+              {/* Visibility Toggle */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(toggleVisibility(layer.id));
+                }}
+              >
+                {layer.visible ? (
+                  <FaEye className="text-gray-600" />
+                ) : (
+                  <FaEyeSlash className="text-gray-400" />
+                )}
+              </button>
+
+              {/* Lock/Unlock Layer */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(toggleLock(layer.id));
+                }}
+              >
+                {layer.locked ? (
+                  <FaLock className="text-red-500" />
+                ) : (
+                  <FaUnlock className="text-green-500" />
+                )}
+              </button>
+
+              {/* Delete Layer */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  dispatch(deleteLayer(layer.id));
+                }}
+              >
+                <FaTrash className="text-red-500" />
+              </button>
+            </div>
           </div>
         ))}
       </div>
