@@ -1,6 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import layersReducer from './layersSlice';
 import toolsReducer from './toolsSlice';
+import historyReducer from './historySlice';
+import canvasReducer from './canvasSlice';
+import settingsReducer from './settingsSlice';
+import assetsReducer from './assetsSlice';
+import userReducer from './userSlice';
 
 const loadState = () => {
   try {
@@ -30,6 +35,11 @@ const store = configureStore({
   reducer: {
     layers: layersReducer,
     tools: toolsReducer,
+    history: historyReducer, // For undo/redo functionality
+    canvas: canvasReducer, // For canvas settings (size, zoom, etc.)
+    settings: settingsReducer, // For app settings (theme, preferences)
+    assets: assetsReducer, // For managing images, icons, etc.
+    user: userReducer, // For user authentication, preferences
   },
   preloadedState: persistedState,
 });
