@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setSelectedTool } from '../redux/toolsSlice';
-import { FaSquare, FaTextHeight, FaMousePointer } from 'react-icons/fa';
+import { FaSquare, FaTextHeight, FaMousePointer, FaCircle } from 'react-icons/fa';
 
 const Toolbar = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,12 @@ const Toolbar = () => {
         className="p-2 hover:bg-gray-700 rounded"
       >
         <FaSquare size={20} />
+      </button>
+      <button
+        onClick={() => dispatch(setSelectedTool('circle'))}
+        className="p-2 hover:bg-gray-700 rounded"
+      >
+        <FaCircle size={20} />
       </button>
       <button
         onClick={() => dispatch(setSelectedTool('text'))}
