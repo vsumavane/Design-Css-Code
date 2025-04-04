@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addLayer } from '../redux/layersSlice';
+import PenTool from './ui/pen-tool';
 
 const Artboard = () => {
   const dispatch = useDispatch();
@@ -190,6 +191,7 @@ const Artboard = () => {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
       >
+        <PenTool />
         {layers.map((el) => (
           <div
             key={el.id}
